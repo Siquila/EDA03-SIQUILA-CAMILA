@@ -20,6 +20,7 @@ public class Autopista {
 		this.vehiculosConExcesoDeVelocidad = new TreeSet <Vehiculo>();
 	}
 	public Boolean registrarTelepase (Integer numeroTelpase, Vehiculo vehiculo) {
+		vehiculosEnCirculacion.add(vehiculo);
 		telepase.put(numeroTelpase, vehiculo);
 		return true;
 				
@@ -27,6 +28,7 @@ public class Autopista {
 	}
 	public Boolean ingresarAutopista (Integer numeroTelepase) throws VehiculoNotFounException {
 		if(telepase.containsKey(numeroTelepase)) {
+			
 			return true;			
 		}
 		
@@ -40,10 +42,17 @@ public class Autopista {
 		}
 	}
 
-	
+	public Boolean controlarVehiculoSiPasaLimiteVelocidad(Vehiculo vehiculo) {
+		Boolean enExceso= false;
+		if(vehiculo.enInfraccion()) {
+		 vehiculosConExcesoDeVelocidad.add(vehiculo);
+		enExceso = true;
+		}
+		return enExceso;
+	}
 	public TreeSet<Vehiculo> obtenerVehiculosConExcesosDeVelocidadOrdenadosPorPatente(){
 
-	return null;
+	return vehiculosConExcesoDeVelocidad;
     }
 
 	public Integer cantidadDeVehiculosENCirculacion() {
