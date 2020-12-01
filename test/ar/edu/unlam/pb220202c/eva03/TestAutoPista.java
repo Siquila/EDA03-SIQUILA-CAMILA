@@ -14,16 +14,13 @@ public class TestAutoPista {
 		
 		assertTrue(autopista.registrarTelepase(1465,auto));
 	}
-	@Test
+	@Test (expected = VehiculoNotFounException.class)
 	public void queAlSalirDelAutopistaNoestaEncirculacionLanceUnaExcepcion() throws VehiculoNotFounException {
 		Autopista autopista = new Autopista ("autopista de Buenos Aires");
 		Automovil auto = new Automovil("ABCDF", 50, 130);
-		autopista.registrarTelepase(1465,auto);
-		autopista.ingresarAutopista(1465);
 		
 		autopista.salirAutpista(auto);
 	}
-	
 	@Test
 	public void queVerifiqueQueSeObtengaUnaListaDeAutosInsfractoresOrdenadaPorPatente(){
 		Autopista autopista = new Autopista ("autopista de Buenos Aires");
@@ -33,22 +30,44 @@ public class TestAutoPista {
 		Automovil auto4 = new Automovil("WBCDF", 131, 130);
 		
 		
-		autopista.controlarVehiculoSiPasaLimiteVelocidad(auto);
-		autopista.controlarVehiculoSiPasaLimiteVelocidad(auto2);
-		autopista.controlarVehiculoSiPasaLimiteVelocidad(auto3);
-		autopista.controlarVehiculoSiPasaLimiteVelocidad(auto4);		
+		autopista.siPasaLimiteVelocidad(auto);
+		autopista.siPasaLimiteVelocidad(auto2);
+		autopista.siPasaLimiteVelocidad(auto3);
+		autopista.siPasaLimiteVelocidad(auto4);
 		
-		
-	assertEquals("ABCDF",autopista.obtenerVehiculosConExcesosDeVelocidadOrdenadosPorPatente().first().getPatente());
-	assertEquals("ZBCDF",autopista.obtenerVehiculosConExcesosDeVelocidadOrdenadosPorPatente().last().getPatente() )	;
-	}
-
-	public void generetestAEleccion1() {
-		
+	String veFirst = "ABCDF";
+	String veLast = "ZBCDF";
+	String first = autopista.obtenerVehiculosConExcesosDeVelocidadOrdenadosPorPatente().first().getPatente();
+	String last = autopista.obtenerVehiculosConExcesosDeVelocidadOrdenadosPorPatente().last().getPatente();
+	
+	
+	assertEquals(veFirst,first);
+	assertEquals(veLast ,last);
 	}
 	
-	public void generetestAEleccion2() {
+	@Test
+	public void siExcedeVelocidadQueEsteEnInfraccion() {
+		Autopista autopista = new Autopista ("autopista de Buenos Aires");
+		Automovil auto = new Automovil("ABCDF", 131, 130);
+		assertTrue(auto.enInfraccion());
+	
+	}
+	
+	public void queLacantidadDeAutosEnInfraccionSeaCorrecta() {
+		Autopista autopista = new Autopista ("autopista de Buenos Aires");
+		Automovil auto = new Automovil("ABCDF", 131, 130);
+		Automovil auto2 = new Automovil("BBCDF", 100, 130);
+		Automovil auto3 = new Automovil("ZBCDF", 131, 130);
+		Automovil auto4 = new Automovil("WBCDF", 15, 130);
 		
+		
+		autopista.siPasaLimiteVelocidad(auto);
+		autopista.siPasaLimiteVelocidad(auto2);
+		autopista.siPasaLimiteVelocidad(auto3);
+		autopista.siPasaLimiteVelocidad(auto4);
+		
+		Integer ve= 2;
+		assertEquals(ve, autopista.cantidadDeVehiculosEnExcesoDeVelocidad());
 	}
 	
 }

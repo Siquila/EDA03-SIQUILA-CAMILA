@@ -3,7 +3,7 @@ package ar.edu.unlam.pb220202c.eva03;
 public class Vehiculo implements Imultable , Comparable<Vehiculo>{
 
 	//Se debe crear contructeres getters y Setters y los que crean convenientes
-	private String Patente;
+	private String patente;
 	private Integer VelocidadActual;
 	private Integer limiteVelocidad;
 	
@@ -11,7 +11,7 @@ public class Vehiculo implements Imultable , Comparable<Vehiculo>{
 	
 	public Vehiculo(String patente, Integer velocidadActual, Integer limiteVelocidad) {
 		super();
-		Patente = patente;
+		this.patente = patente;
 		VelocidadActual = velocidadActual;
 		this.limiteVelocidad = limiteVelocidad;
 	}
@@ -34,13 +34,14 @@ public class Vehiculo implements Imultable , Comparable<Vehiculo>{
 
 
 	public String getPatente() {
-		return Patente;
+		return patente;
 	}
 
+	
 
 
 	public void setPatente(String patente) {
-		Patente = patente;
+		this.patente = patente;
 	}
 
 
@@ -73,7 +74,7 @@ public class Vehiculo implements Imultable , Comparable<Vehiculo>{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Patente == null) ? 0 : Patente.hashCode());
+		result = prime * result + ((patente == null) ? 0 : patente.hashCode());
 		return result;
 	}
 
@@ -88,10 +89,10 @@ public class Vehiculo implements Imultable , Comparable<Vehiculo>{
 		if (getClass() != obj.getClass())
 			return false;
 		Vehiculo other = (Vehiculo) obj;
-		if (Patente == null) {
-			if (other.Patente != null)
+		if (patente == null) {
+			if (other.patente != null)
 				return false;
-		} else if (!Patente.equals(other.Patente))
+		} else if (!patente.equals(other.patente))
 			return false;
 		return true;
 	}
@@ -99,9 +100,9 @@ public class Vehiculo implements Imultable , Comparable<Vehiculo>{
 
 
 	@Override
-	public int compareTo(Vehiculo o) {
+	public int compareTo(Vehiculo vehiculo) {
 		
-		return o.Patente.compareTo(o.getPatente());
+		return this.patente.compareTo(vehiculo.getPatente());
 	}
 	
 	
